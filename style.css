@@ -1,0 +1,254 @@
+/* Базовые стили */
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh; /* Улучшено для полного покрытия */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Dancing Script', cursive;
+    color: #fff;
+    background: radial-gradient(circle at center, purple, pink, white); /* Базовый градиент */
+    animation: wave-gradient 10s infinite ease-in-out;
+    /* filter: url(#noise); */ /* Временно отключено для теста; раскомментируйте, если фон работает */
+    box-sizing: border-box; /* Для избежания overflow проблем */
+}
+
+@keyframes wave-gradient {
+    0% { background-position: 0% 50%; }
+    25% { background-position: 100% 50%; }
+    50% { background-position: 0% 50%; }
+    75% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.hidden { display: none !important; } /* Усилено для надёжности */
+
+/* Мобильная заглушка */
+#mobile-stub {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    color: #fff;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    z-index: 1000;
+}
+
+@media (max-width: 1023px) {
+    #mobile-stub { display: flex; }
+    #login-section, #main-section, #final-section, #hack-overlay { display: none; }
+}
+
+/* Экран входа */
+#login-section {
+    text-align: center;
+    display: block; /* Явно visible по умолчанию */
+}
+
+#code-input {
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 5px;
+    border: 1px solid #fff;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    backdrop-filter: blur(10px);
+}
+
+#hint {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #ffcccb;
+}
+
+#cat-container {
+    position: fixed;
+    right: -300px; /* Начально за экраном */
+    top: 50%;
+    transform: translateY(-50%);
+    transition: right 0.5s ease-in-out;
+}
+
+#cat-container.visible {
+    right: 0;
+}
+
+#cat-img {
+    width: 300px;
+    height: auto;
+}
+
+#cat-text {
+    position: absolute;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    padding: 5px 10px;
+    border-radius: 10px;
+    font-size: 18px;
+}
+
+/* Основная страница */
+#main-section {
+    text-align: center;
+}
+
+h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    margin: 10px;
+    font-size: 24px;
+    border: none;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    color: #fff;
+    cursor: pointer;
+    transition: transform 0.2s, opacity 1s, filter 1s;
+    position: relative;
+}
+
+#no-btn {
+    background-image: url('https://p.productioncrate.com/stock-hd/graphics/effects-smashed-glass/graphicscrate-broken-glass-3_prev_lg.png'); /* Placeholder для трещины */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* Финальный экран */
+#final-section {
+    text-align: center;
+}
+
+#dot {
+    width: 10px;
+    height: 10px;
+    background: #000;
+    border-radius: 50%;
+    margin: 0 auto;
+    animation: scale-dot 1s forwards;
+}
+
+@keyframes scale-dot {
+    0% { transform: scale(0); }
+    100% { transform: scale(1); }
+}
+
+#photo {
+    width: 400px;
+    height: auto;
+    border-radius: 10px;
+    animation: scale-photo 1s ease-in-out forwards;
+    position: relative;
+}
+
+@keyframes scale-photo {
+    0% { transform: scale(0); }
+    100% { transform: scale(1); }
+}
+
+#emojis {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    font-size: 32px;
+    animation: fade-in 1s forwards;
+    pointer-events: none;
+}
+
+@keyframes fade-in {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+#caption {
+    font-size: 24px;
+    margin-top: 20px;
+}
+
+#thought-bubble {
+    position: absolute;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff;
+    color: #000;
+    padding: 10px;
+    border-radius: 10px;
+    animation: fade-in 0.5s forwards;
+}
+
+/* Hack overlay */
+#hack-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#bsod {
+    background: #0000ff;
+    color: #fff;
+    padding: 20px;
+    font-family: monospace;
+    font-size: 24px;
+}
+
+#matrix-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+}
+
+#banner {
+    background: #f0f0f0;
+    color: #000;
+    padding: 20px;
+    border: 2px solid #000;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+#cancel-btn {
+    padding: 10px;
+    background: #ccc;
+    border: none;
+    cursor: pointer;
+}
+
+/* Animated Gradient - Wave Motion */
+
+      @keyframes gradient-wave-custom {
+        0%, 100% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+      }
+    
+
+.animated-gradient {
+background: linear-gradient(90deg, #FF9A9E 0%, #FECFEF 50%, #FECFEF 100%);
+animation: gradient-wave-custom 8.5s linear infinite;
+  background-size: 400% 400%;
+}

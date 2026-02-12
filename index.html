@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Валентинский Подарок</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="mobile-stub" class="hidden">Нужно открыть с компьютера.  На телефоне я не работаю.</div>
+    <div id="login-section">
+        <input type="text" id="code-input" placeholder="Введите кодовое слово" tabindex="0">
+        <div id="hint" class="hidden">да, попробуй ещё, когда я произнес – это шокировало нас обоих. Тут всего одно слово</div>
+        <div id="cat-container" class="hidden">
+            <img id="cat-img" src="https://static.vecteezy.com/system/resources/previews/045/648/579/non_2x/crying-cat-meme-sticker-illustration-free-png.png" alt="Осуждающий котик (оранжево-черный с грустной мордой)">
+            <div id="cat-text"></div>
+        </div>
+    </div>
+    <div id="main-section" class="hidden">
+        <h1>Будешь ли ты моей валентинкой?</h1>
+        <button id="yes-btn" tabindex="0">Да</button>
+        <button id="no-btn" tabindex="0">Нет</button>
+    </div>
+    <div id="final-section" class="hidden">
+        <div id="photo-container">
+            <div id="dot" class="hidden"></div>
+            <img id="photo" src="https://static.vecteezy.com/system/resources/previews/045/648/579/non_2x/crying-cat-meme-sticker-illustration-free-png.png" alt="Фото" class="hidden">
+            <div id="emojis" class="hidden">✨ 💖 🌹 💕 ⭐</div>
+            <p id="caption" class="hidden">привет родная, я тебе давно говорил, что влюблен в тебя и что я очень рад, что ты у меня есть 💞 С праздником, моя любимка</p>
+            <div id="thought-bubble" class="hidden">прекрати в меня тыкать, пожалуйста 😘</div>
+        </div>
+    </div>
+    <div id="hack-overlay" class="hidden">
+        <div id="bsod" class="hidden">*** STOP: 0x0000007B (INACCESSIBLE_BOOT_DEVICE) ***<br>Твой компьютер сломался из-за отказа.</div>
+        <canvas id="matrix-canvas" class="hidden"></canvas>
+        <div id="banner" class="hidden">
+            <p>Тебя сейчас взламывает эта страница. Все данные уже сливаются на гугл диск. Если ты хочешь спасти ситуацию – нажми Отменить.</p>
+            <button id="cancel-btn">Отмена</button>
+        </div>
+    </div>
+
+    <!-- SVG для зернистости фона отключен временно для теста; если фон заработает, раскомментируйте и настройте -->
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="position: absolute; width: 0; height: 0; overflow: hidden;">
+        <defs>
+            <filter id="noise">
+                <feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="3" stitchTiles="stitch"/>
+                <feBlend mode="screen" in="SourceGraphic" in2="SourceGraphic" result="noiseBlend"/>
+            </filter>
+        </defs>
+    </svg>
+
+    <script src="script.js"></script>
+</body>
+</html>
