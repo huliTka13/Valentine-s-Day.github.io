@@ -1,28 +1,40 @@
+/* Переменные для единого формата */
+:root {
+    --primary-color: #FF69B4; /* Основной розовый для акцентов */
+    --text-color: #FF69B4; /* Тёмно-розовый/фиолетовый для текста (высокий контраст) */
+    --bg-element: rgba(255, 255, 255, 0.6); /* Полупрозрачный фон для элементов */
+    --border-color: #fff; /* Белая граница */
+    --shadow-color: rgba(0, 0, 0, 0.2); /* Тень для элементов */
+    --transition: 0.2s ease; /* Единый transition */
+    --border-radius: 10px; /* Единый радиус */
+    --font-main: 'Dancing Script', cursive; /* Основной романтический шрифт */
+    --font-elegant: 'Playfair Display', serif; /* Более красивый шрифт для заголовков */
+    --text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Тень для читаемости */
+}
+
 /* Базовые стили */
 body {
     margin: 0;
     padding: 0;
-    min-height: 100vh; /* Улучшено для полного покрытия */
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: 'Dancing Script', cursive;
-    color: #fff;
-    background: radial-gradient(circle at center, purple, pink, white); /* Базовый градиент */
-    animation: wave-gradient 10s infinite ease-in-out;
-    /* filter: url(#noise); */ /* Временно отключено для теста; раскомментируйте, если фон работает */
-    box-sizing: border-box; /* Для избежания overflow проблем */
+    font-family: var(--font-main);
+    color: var(--text-color);
+    background: #000; /* Fallback на чёрный, если canvas не загрузится */
+    box-sizing: border-box;
+    text-shadow: var(--text-shadow); /* Тень для всего текста */
 }
 
-@keyframes wave-gradient {
-    0% { background-position: 0% 50%; }
-    25% { background-position: 100% 50%; }
-    50% { background-position: 0% 50%; }
-    75% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+/* Импорт шрифтов (добавлен Playfair Display для красоты) */
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Playfair+Display:wght@400;700&display=swap');
+
+#no-btn, #cat-container, #banner, #hack-overlay {
+    will-change: transform, opacity;
 }
 
-.hidden { display: none !important; } /* Усилено для надёжности */
+.hidden { display: none !important; }
 
 /* Мобильная заглушка */
 #mobile-stub {
@@ -32,12 +44,13 @@ body {
     width: 100%;
     height: 100%;
     background: #000;
-    color: #fff;
+    color: var(--text-color);
     display: none;
     justify-content: center;
     align-items: center;
     font-size: 24px;
     z-index: 1000;
+    font-family: var(--font-elegant);
 }
 
 @media (max-width: 1023px) {
@@ -47,31 +60,82 @@ body {
 
 /* Экран входа */
 #login-section {
-    text-align: center;
-    display: block; /* Явно visible по умолчанию */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Центрирование всех элементов по горизонтали */
+    gap: 5px; /* Уменьшено для плотного расположения */
+    max-width: 300px; /* Ограничение ширины для формы */
+    margin: 0 auto; /* Центрирование всего блока на странице */
 }
 
+/* Поле ввода (центрировано) */
 #code-input {
-    padding: 10px;
-    font-size: 18px;
-    border-radius: 5px;
-    border: 1px solid #fff;
-    background: rgba(255, 255, 255, 0.2);
-    color: #fff;
+    align-self: center; /* Явное центрирование */
+    width: 300px;
+    padding: 10px 20px;
+    font-size: 20px;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
+    background: var(--bg-element);
+    color: var(--text-color);
     backdrop-filter: blur(10px);
+    box-shadow: 0 2px 5px var(--shadow-color);
+    transition: var(--transition);
+    font-family: var(--font-main);
+    text-align: center; /* Текст внутри поля центрирован (для placeholder и ввода) */
 }
 
-#hint {
-    margin-top: 10px;
-    font-size: 16px;
-    color: #ffcccb;
+#code-input:focus {
+    outline: none;
+    box-shadow: 0 0 10px var(--primary-color);
 }
 
+#code-input.error {
+    box-shadow: 0 0 10px red !important;
+    border-color: red;
+}
+
+/* Стили для подсказок (единые для всех, центрированы) */
+#initial-hint, #hint, #second-hint {
+    align-self: center; /* Явное центрирование */
+    margin-top: 5px; /* Уменьшено для поднятия ближе к полю ввода */
+    font-size: 18px;
+    color: var(--primary-color);
+    font-family: var(--font-main);
+    text-shadow: var(--text-shadow);
+    text-align: center; /* Текст центрирован */
+    max-width: 300px; /* Чтобы текст не растягивался */
+    line-height: 1.4; /* Для лучшей читаемости */
+}
+
+/* Кнопка (центрирована) */
+#submit-btn {
+    align-self: center; /* Явное центрирование */
+    padding: 10px 20px;
+    font-size: 28px;
+    border: none;
+    border-radius: var(--border-radius);
+    background: var(--bg-element);
+    backdrop-filter: blur(10px);
+    color: var(--text-color);
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 2px 5px var(--shadow-color);
+    font-family: var(--font-elegant);
+    font-weight: 700;
+    width: auto; /* Авто-ширина для центрирования */
+}
+
+#submit-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px var(--primary-color);
+}
+
+/* Котик (без изменений, но добавил text-shadow) */
 #cat-container {
     position: fixed;
-    right: -300px; /* Начально за экраном */
-    top: 50%;
-    transform: translateY(-50%);
+    right: -300px;
+    bottom: 10%;
     transition: right 0.5s ease-in-out;
 }
 
@@ -80,175 +144,389 @@ body {
 }
 
 #cat-img {
-    width: 300px;
+    width: 500px;
     height: auto;
 }
 
 #cat-text {
     position: absolute;
-    top: -50px;
+    top: -50px; 
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(255, 255, 255, 0.277);
     padding: 5px 10px;
-    border-radius: 10px;
+    border-radius: var(--border-radius);
     font-size: 18px;
+    color: var(--text-color);
+    text-shadow: var(--text-shadow);
 }
 
 /* Основная страница */
 #main-section {
     text-align: center;
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Полная высота для центрирования */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Вертикальное центрирование */
+    align-items: center; /* Горизонтальное центрирование */
 }
 
 h1 {
-    font-size: 48px;
+    font-size: 56px;
     margin-bottom: 20px;
+    font-family: var(--font-elegant);
+    font-weight: 700;
+    color: var(--text-color);
 }
+/* Новая обёртка для кнопок (горизонтальное размещение) */
+#buttons-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center; /* Центрирование кнопок в обёртке */
+    align-items: center; /* Выравнивание по вертикали */
+    gap: 40px; /* Минимум 40px между кнопками */
+    margin-top: 20px; /* Отступ от h1 */
+}
+
 
 button {
     padding: 10px 20px;
-    margin: 10px;
-    font-size: 24px;
+    font-size: 28px;
     border: none;
-    border-radius: 20px;
-    background: rgba(255, 255, 255, 0.2);
+    border-radius: var(--border-radius);
+    background: var(--bg-element);
     backdrop-filter: blur(10px);
-    color: #fff;
+    color: var(--text-color);
     cursor: pointer;
-    transition: transform 0.2s, opacity 1s, filter 1s;
-    position: relative;
+    transition: var(--transition);
+    box-shadow: 0 2px 5px var(--shadow-color);
+    font-family: var(--font-elegant);
+    font-weight: 700;
+    min-width: 100px; /* Минимальная ширина для consistency */
+}
+
+#yes-btn {
+    position: relative; /* Остаётся слева */
+}
+
+
+button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px var(--primary-color);
 }
 
 #no-btn {
-    background-image: url('https://p.productioncrate.com/stock-hd/graphics/effects-smashed-glass/graphicscrate-broken-glass-3_prev_lg.png'); /* Placeholder для трещины */
+    background-image: url('https://p.productioncrate.com/stock-hd/graphics/effects-smashed-glass/graphicscrate-broken-glass-3_prev_lg.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+    transition: left 0.05s ease-out, top 0.05s ease-out;
+    position: relative; /* Исходно relative в обёртке, JS сделает absolute */
+    z-index: 10;
 }
 
-/* Финальный экран */
+/* Финальный экран (доработано для полноэкранного вида без скролла) */
 #final-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Вертикальное центрирование */
+    align-items: center; /* Горизонтальное центрирование */
+    height: 100vh; /* Полная высота экрана */
+    width: 100vw; /* Полная ширина */
     text-align: center;
+    overflow: hidden; /* Нет скролла */
+    box-sizing: border-box;
+    padding: 20px; /* Небольшой отступ для безопасности */
 }
 
-#dot {
-    width: 10px;
-    height: 10px;
-    background: #000;
-    border-radius: 50%;
-    margin: 0 auto;
-    animation: scale-dot 1s forwards;
+#hearts {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    filter: blur(4px);
 }
 
-@keyframes scale-dot {
-    0% { transform: scale(0); }
-    100% { transform: scale(1); }
+#photo-container {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: row; /* Горизонтальное размещение: фото слева, текст справа */
+    align-items: center; /* Вертикальное выравнивание по центру */
+    justify-content: center; /* Горизонтальное центрирование группы */
+    gap: 40px; /* Отступ между фото и текстом */
+    max-width: 80vw; /* Ограничение ширины группы */
+    max-height: 80vh; /* Ограничение высоты, чтобы влазило */
+    overflow: hidden; /* Нет скролла внутри */
+}
+
+#photo-wrapper {  /* Новая обертка для фото */
+    position: relative; /* Для абсолютного позиционирования эмодзи */
+    flex: 1; /* Занимает доступное пространство слева */
+    max-width: 50%; /* Не больше половины ширины контейнера */
 }
 
 #photo {
-    width: 400px;
-    height: auto;
-    border-radius: 10px;
-    animation: scale-photo 1s ease-in-out forwards;
-    position: relative;
-}
-
-@keyframes scale-photo {
-    0% { transform: scale(0); }
-    100% { transform: scale(1); }
+    max-width: 100%; /* Фото масштабируется */
+    max-height: 60vh; /* Оставляем место для текста и эмодзи */
+    transition: all 0.5s ease; /* Плавная анимация, если нужно */
 }
 
 #emojis {
-    position: absolute;
+    position: absolute; /* Относительно #photo-wrapper */
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    font-size: 32px;
-    animation: fade-in 1s forwards;
-    pointer-events: none;
 }
 
-@keyframes fade-in {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
+.emoji {
+    position: absolute;
+    font-size: 2em; /* Размер эмодзи */
+    animation: float 2s infinite; /* Пример анимации, если нужно */
 }
 
 #caption {
-    font-size: 24px;
-    margin-top: 20px;
+    flex: 1; /* Занимает доступное пространство справа */
+    font-size: 28px; /* Исходный размер (будет авто-уменьшаться) */
+    margin: 0; /* Убрал margin-top для лучшего выравнивания */
+    color: var(--text-color);
+    font-family: var(--font-elegant);
+    font-weight: 700;
+    max-width: 40%; /* Ограничение ширины текста для читаемости */
+    line-height: 1.5; /* Лучшая читаемость */
+    word-wrap: break-word; /* Перенос слов */
+    text-align: left; /* Текст выровнен по левому краю для естественности */
+    overflow: auto; /* Если текст все равно не влезет, добавляем скролл (но с авто-уменьшением это редко) */
+}
+/* Медиа-запрос для маленьких экранов (адаптация: на мобильных переключаем на column для стека) */
+@media (max-width: 768px) {
+    #photo-container {
+        flex-direction: column; /* На маленьких экранах: фото сверху, текст снизу */
+        gap: 20px;
+    }
+
+    #photo-wrapper {
+        max-width: 100%; /* Полная ширина */
+    }
+
+    #caption {
+        max-width: 100%; /* Полная ширина */
+        font-size: 20px; /* Базовое уменьшение */
+        text-align: center; /* Центрируем текст */
+    }
+
+    .emoji {
+        font-size: 1.5em; /* Уменьшаем эмодзи */
+    }
+
+    #thought-bubble {
+        font-size: 16px;
+        padding: 8px;
+    }
 }
 
-#thought-bubble {
-    position: absolute;
-    top: -50px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #fff;
-    color: #000;
-    padding: 10px;
-    border-radius: 10px;
-    animation: fade-in 0.5s forwards;
-}
-
-/* Hack overlay */
+/* Hack overlay (без изменений) */
 #hack-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: #000;
     z-index: 999;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
 }
 
+/* BSOD на весь экран (доработано: без скролла, текст оборачивается) */
 #bsod {
-    background: #0000ff;
+    background: #002de1; /* Классический синий цвет BSOD */
     color: #fff;
-    padding: 20px;
+    padding: 20px; /* Уменьшено для большего места тексту */
     font-family: monospace;
-    font-size: 24px;
-}
-
-#matrix-canvas {
+    font-size: 28px;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    text-align: left;
+    white-space: normal; /* Позволяет нормальный перенос строк */
+    word-wrap: break-word; /* Перенос длинных слов/строк */
+    word-break: break-word; /* Разрыв слов, если нужно */
+    overflow: hidden; /* Нет скролла, всё помещается */
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background: #000;
 }
 
+#bsod pre {
+    margin: 0;
+    line-height: 1.4;
+    width: 100%; /* Pre на всю ширину для оборачивания */
+}
+
+/* Медиа-запрос для маленьких экранов (уменьшаем шрифт) */
+@media (max-width: 768px) {
+    #bsod {
+        font-size: 20px; /* Меньше шрифт, чтобы текст влез без скролла */
+        padding: 10px;
+    }
+}
+
+/* Баннер (без изменений, для полноты) */
 #banner {
     background: #f0f0f0;
     color: #000;
     padding: 20px;
     border: 2px solid #000;
+    border-radius: 5px;
     font-family: Arial, sans-serif;
+    text-align: center;
+    width: 400px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    position: relative;
+    z-index: 1;
+}
+
+.window-header {
+    background: linear-gradient(to bottom, #0055a4, #004080);
+    height: 28px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    margin: -20px -20px 20px -20px;
+}
+
+#banner h2 {
+    font-size: 24px;
+    margin: 10px 0;
+    color: #d00;
+}
+
+#banner p {
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+/* Прогресс-бар (без изменений) */
+#progress-bar {
+    background: #ddd;
+    border: 1px solid #aaa;
+    height: 20px;
+    position: relative;
+    margin: 20px 0;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+#progress-fill {
+    background: #00a;
+    height: 100%;
+    width: 0%;
+    transition: width 0.1s linear;
+}
+
+#progress-text {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #fff;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+/* Кнопка "Отмена" в стиле Windows */
+#cancel-btn {
+    padding: 6px 16px; /* Стандартный padding для Windows-кнопок */
+    background: linear-gradient(to bottom, #f0f0f0, #d0d0d0); /* Градиент серый */
+    border: 1px solid #808080; /* Тёмно-серый бордер */
+    border-radius: 2px; /* Лёгкое скругление, как в старом Windows */
+    color: #000;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); /* Лёгкая тень */
+    transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+#cancel-btn:hover {
+    background: linear-gradient(to bottom, #e0e0e0, #c0c0c0); /* Более яркий градиент на hover */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Усиленная тень */
+}
+
+#cancel-btn:active {
+    background: linear-gradient(to bottom, #d0d0d0, #b0b0b0); /* Нажатый вид */
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2); /* Внутренняя тень */
+}
+
+/* Дополнительные стили для финального фона */
+.final-background {
+    background: white !important;
+    animation: spread-colors 3s forwards;
+}
+
+@keyframes spread-colors {
+    0% {
+        background: radial-gradient(circle at center,
+            #FF69B4 0%, #FF69B4 25%, #FFB6C1 50%, #FF1493 80%, #C71585 100%
+        );
+    }
+    100% {
+        background: radial-gradient(circle at center,
+            #FFB6C1 0%, #FFB6C1 25%, #FF69B4 50%, #FF1493 80%, #C71585 100%
+        );
+    }
+}
+
+/* Другие элементы (добавлена унификация) */
+#thought-bubble {
+    position: absolute;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff;
+    color: var(--text-color);
+    padding: 10px;
+    border-radius: var(--border-radius);
+    animation: fade-in 0.5s forwards;
+    font-family: var(--font-main);
+    box-shadow: 0 2px 5px var(--shadow-color);
+    max-width: 300px; /* Ограничение ширины */
     text-align: center;
 }
 
-#cancel-btn {
-    padding: 10px;
-    background: #ccc;
-    border: none;
-    cursor: pointer;
+/* Медиа-запрос для маленьких экранов (адаптация размеров) */
+@media (max-width: 768px) {
+    #caption {
+        font-size: 20px; /* Уменьшаем текст */
+        margin-top: 10px;
+    }
+
+    #photo {
+        max-height: 50vh; /* Больше места для текста */
+    }
+
+    .emoji {
+        font-size: 1.5em; /* Уменьшаем эмодзи */
+    }
+
+    #thought-bubble {
+        font-size: 16px;
+        padding: 8px;
+    }
 }
 
-/* Animated Gradient - Wave Motion */
+/* Класс для body, чтобы запретить скролл на финальном экране */
+body.no-scroll {
+    overflow: hidden;
+    }
 
-      @keyframes gradient-wave-custom {
-        0%, 100% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-      }
     
-
-.animated-gradient {
-background: linear-gradient(90deg, #FF9A9E 0%, #FECFEF 50%, #FECFEF 100%);
-animation: gradient-wave-custom 8.5s linear infinite;
-  background-size: 400% 400%;
-}
