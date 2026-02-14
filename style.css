@@ -316,6 +316,7 @@ button:hover {
     }
 
     #caption {
+        color: #fff;
         max-width: 100%; /* Полная ширина */
         font-size: 20px; /* Базовое уменьшение */
         text-align: center; /* Центрируем текст */
